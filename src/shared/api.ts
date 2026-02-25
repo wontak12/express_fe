@@ -1,17 +1,17 @@
-import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, InternalAxiosRequestConfig, AxiosResponse } from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080",
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3500',
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
 });
 
 // Request Interceptor
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -48,12 +48,12 @@ api.interceptors.response.use(
 
     // 403 Forbidden
     if (error.response?.status === 403) {
-      console.error("접근 권한이 없습니다.");
+      console.error('접근 권한이 없습니다.');
     }
 
     // 500 Server Error
     if (error.response?.status && error.response.status >= 500) {
-      console.error("서버 오류가 발생했습니다.");
+      console.error('서버 오류가 발생했습니다.');
     }
 
     return Promise.reject(error);
