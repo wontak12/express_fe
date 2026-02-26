@@ -11,8 +11,14 @@ function ProfessorLectureList() {
   useEffect(() => {
     api
       .get("/api/professor/lectures")
-      .then((res) => setLectures(res.data))
-      .catch(() => setLectures([]))
+      .then((res) => {
+        console.log("[ProfessorLectureList] lectures:", res.data);
+        setLectures(res.data);
+      })
+      .catch((err) => {
+        console.error("[ProfessorLectureList] error:", err);
+        setLectures([]);
+      })
       .finally(() => setLoading(false));
   }, []);
 
