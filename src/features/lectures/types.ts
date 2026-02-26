@@ -2,7 +2,7 @@ export interface Lecture {
   id: number;
   title: string;
   description: string;
-  professor: string;
+  professor_name: string;
   access_code: string;
   created_at: string;
   year: number;

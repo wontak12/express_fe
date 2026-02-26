@@ -21,8 +21,14 @@ function LectureList() {
     setPageLoading(true);
     api
       .get("/api/lectures")
-      .then((res) => setLectures(res.data))
-      .catch(() => setLectures([]))
+      .then((res) => {
+        console.log("[LectureList] lectures:", res.data);
+        setLectures(res.data);
+      })
+      .catch((err) => {
+        console.error("[LectureList] error:", err);
+        setLectures([]);
+      })
       .finally(() => setPageLoading(false));
   };
 
@@ -33,7 +39,7 @@ function LectureList() {
   const filtered = lectures.filter(
     (l) =>
       l.title.toLowerCase().includes(search.toLowerCase()) ||
-      l.professor.includes(search) ||
+      l.professor_name.includes(search) ||
       l.major.includes(search)
   );
 
